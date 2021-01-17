@@ -34,6 +34,9 @@ img.slider-img{
 img.trending-image{
     height: 100px;
 }
+img.trending-image-search{
+    height: 250px;
+}
 .trending-item{
     float:left;
     width: 20%;
@@ -51,6 +54,20 @@ img.detail-img{
     border-bottom: 1px solid #ccc;
     margin-bottom: 20px;
     padding-bottom: 20px;
+}
+.link-web a{
+    color: #000;
+  text-decoration: none;
+  transition: color 0.5s;
+}
+.link-web a:hover{
+    transition: 1s;
+  border-bottom: 0px;
+    color: #646786;
+
+}
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
 </style>
 </html>

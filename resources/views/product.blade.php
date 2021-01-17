@@ -1,6 +1,5 @@
 @extends('master')
 @section('content')
-
 <div class="custom-product">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -8,6 +7,11 @@
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+            <li data-target="#myCarousel" data-slide-to="5"></li>
+            <li data-target="#myCarousel" data-slide-to="6"></li>
+
         </ol>
 
     <!-- Wrapper for slides -->
@@ -15,7 +19,9 @@
         @foreach($products as $item)
             <div class="item {{ $item['id']== 1 ?'active': '' }}">
                 <a href="detail/{{ $item['id'] }}">
-                    <img class="slider-img" src="{{ $item['gallery'] }}" >
+                    <div class="text-center">
+                        <img class="slider-img " src="{{ $item['gallery'] }}" >
+                    </div>
                     <div class="carousel-caption slider-text">
                         <h3>{{ $item['name'] }}</h3>
                         <p>{{ $item['description'] }}</p>
@@ -39,12 +45,14 @@
         <h3>Trending Products</h3>
         @foreach($products as $item)
         <div class="trending-item">
-            <a href="detail/{{ $item['id'] }}">
-                <img class="trending-image" src="{{ $item['gallery'] }}" >
-                    <div class="">
-                        <h3>{{ $item['name'] }}</h3>
-                    </div>
-            </a>
+            <div class="link-web">
+                <a href="detail/{{ $item['id'] }}">
+                    <img class="trending-image" src="{{ $item['gallery'] }}" >
+                        <div class="h3">
+                            {{ $item['name'] }}
+                        </div>
+                </a>
+            </div>
         </div>
 
             @endforeach
