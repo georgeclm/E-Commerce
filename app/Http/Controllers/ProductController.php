@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
+
 // this is to use the session inside controller
 use Session;
 // this is to use to join the databse inside the controller for the cart list
@@ -97,5 +99,46 @@ class ProductController extends Controller
         ->sum('products.price');
         return view('ordernow',['total'=> $total]);
         
+    }
+    // this function to save all the data user inputed and the product to the database
+    function orderPlace(Request $req)
+    {
+        // take the user id from the session
+        $userId= Session::get('user')['id'];
+        // store all data inside the variable
+        $allCart = Cart::where('user_id',$userId)->get();
+        // loop through the list inside the cart and store each to the database
+        foreach($allCart as $cart)
+        {
+            // create the new model order that is already in database create the class
+            $order = new Order;
+            // store all the requirment inside the database
+            $order->product_id=$cart['product_id'];
+            $order->user_id= $cart['user_id'];
+            $order->status= 'Pending';
+            $order->payment_method= $req->payment;
+            $order->payment_status= 'Pending';
+            $order->address= $req->address;
+            // save all the value inside the database
+            $order->save();
+            // after the data have been saved then delete the data from the cart
+            Cart::where('user_id',$userId)->delete();
+        }
+        $req->input();
+        return redirect('/');
+    }
+    // this my order will use join again because inside the table orders there is no information about the products so to show the product inside orders we need to join the database
+    function myOrder()
+    {
+        $userId= Session::get('user')['id'];
+        // first the orders table that is want to get join
+        $orders= DB::table('orders')
+        // join the database with the products and same as prior
+        // how to read this join the first one is the products table and then the second is the orders product id and the last compare with the products.id inside products table
+        ->join('products','orders.product_id','=','products.id')
+        ->where('orders.user_id',$userId)
+        ->get();
+        return view('myorder',['orders'=> $orders]);
+
     }
 }
