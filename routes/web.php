@@ -18,6 +18,20 @@ use App\Http\Controllers\ProductController;
 Route::get('/login', function () {
     return view('login');
 });
+// for the logout route use the get and the function 
+Route::get('/logout', function () {
+    // forget the session from the browser
+    Session::forget('user');
+    // redirect to the login page
+    return redirect('login');
+});
 Route::post("/login", [UserController::class, 'login']);
 Route::get("/", [ProductController::class, 'index']);
+Route::get("/detail/{id}", [ProductController::class, 'detail']);
+Route::get("search", [ProductController::class, 'search']);
+Route::post("add_to_cart", [ProductController::class, 'addToCart']);
+
+
+
+
 
