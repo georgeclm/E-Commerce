@@ -85,4 +85,17 @@ class ProductController extends Controller
         // after that redirect to the cartlist
         return redirect('/cartlist');
     }
+    // for the order now button to set the sum same with the cart list 
+    function orderNow()
+    {
+        $userId= Session::get('user')['id'];
+        $total = $products = DB::table('cart')
+        ->join('products','cart.product_id','=','products.id')
+        ->where('cart.user_id',$userId)
+        ->select('products.*','cart.id as cart_id')
+        // on here use sum to sum all and the variable is the product price total
+        ->sum('products.price');
+        return view('ordernow',['total'=> $total]);
+        
+    }
 }
