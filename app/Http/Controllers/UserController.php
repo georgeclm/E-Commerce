@@ -32,4 +32,9 @@ class UserController extends Controller
         $user->save();
         return redirect('/login');
     }
+    function profile($id)
+    {
+        $data = User::find($id);
+        return view('profile',['user'=> $data]);
+    }
 }

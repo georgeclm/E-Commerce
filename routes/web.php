@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\tokoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +27,12 @@ Route::get('/logout', function () {
     // redirect to the login page
     return redirect('login');
 });
+Route::get('/profile/{id}', [UserController::class, 'profile']);
+
 Route::view('/register','register');
 Route::post("/login", [UserController::class, 'login']);
+Route::get("/toko/{id}", [tokoController::class, 'index']);
+
 
 Route::post("/register", [UserController::class, 'register']);
 Route::get("/", [ProductController::class, 'index']);
