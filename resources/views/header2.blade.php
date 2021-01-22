@@ -4,7 +4,6 @@ use App\Http\Controllers\tokoController;
 $total = 0;
 if(Session::has('user')){
   $value = tokoController::hasProfile();
-
 $total= ProductController::cartItem();
 }
 
@@ -25,8 +24,8 @@ $total= ProductController::cartItem();
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Home </a></li>
-        <li class=""><a href="myorders">Orders </a></li>
+        <li class=""><a href="/">Home </a></li>
+        <li class="active"><a href="myorders">Orders </a></li>
 
       </ul>
       <form action= "/search"class="navbar-form navbar-left">
@@ -42,7 +41,7 @@ $total= ProductController::cartItem();
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Toko
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          @if($value == 'no')
+        @if($value == 'no')
           <li><a href="#">Your Toko</a></li>
           @else
           <li><a href="/toko/create">Create Toko</a></li>

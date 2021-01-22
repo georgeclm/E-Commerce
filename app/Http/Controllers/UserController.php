@@ -15,7 +15,7 @@ class UserController extends Controller
         $user = User::where(['email'=>$req->email])->first();
         // compare the user data with the post request from the form using the hashing checking with the user real password
         if(!$user || !Hash::check($req->password,$user->password)){
-            return "Username or password is not matched";
+            return view('loginfail');
         }else{
             // if the data is correct then add the user session inside the user and then redirect to the home page  
             $req->session()->put('user', $user);

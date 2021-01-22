@@ -43,11 +43,9 @@ class ProductController extends Controller
             // from the name inside the input text to take the product id
             $cart->product_id=$req->product_id;
             // save to the database cart
+            
             $cart->save();
             return redirect('/');
-
-
-
         }else
         {
             return redirect('/login');

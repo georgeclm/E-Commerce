@@ -16,7 +16,7 @@ class CreateCartTable extends Migration
         Schema::create('cart', function (Blueprint $table) {
             // for the connection both primary key inside 2 table 
             $table->id();
-            $table->integer('product_id');
+            $table->integer('product_id')->unique();
             $table->integer('user_id');
             $table->timestamps();
         });

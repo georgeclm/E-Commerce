@@ -1,5 +1,12 @@
 @extends('master')
 @section('content')
+<?php
+use App\Http\Controllers\ProductController;
+if(Session::has('user')){
+  $total= ProductController::cartItem();
+  }
+  
+?>
 <div class="custom-product">
     <div class="col-sm-10">
         <div class="trending-wrapper">
@@ -23,7 +30,9 @@
                 </div>
             </div>
                 @endforeach
-            <a class="btn btn-success" href="ordernow">Order Now</a> <br><br>
+                    @if($total > 3)
+                        <a class="btn btn-success" href="ordernow">Order Now</a> <br><br>
+                    @endif
 
         </div>
     </div>

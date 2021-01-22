@@ -31,7 +31,8 @@ Route::get('/profile/{id}', [UserController::class, 'profile']);
 
 Route::view('/register','register');
 Route::post("/login", [UserController::class, 'login']);
-Route::get("/toko/{id}", [tokoController::class, 'index']);
+Route::get("/toko/create", [tokoController::class, 'index']);
+Route::post("/toko", [tokoController::class, 'createToko']);
 
 
 Route::post("/register", [UserController::class, 'register']);
@@ -42,6 +43,8 @@ Route::post("add_to_cart", [ProductController::class, 'addToCart']);
 Route::get("cartlist", [ProductController::class, 'cartList']);
 Route::get("removecart/{id}", [ProductController::class, 'removeCart']);
 Route::get("ordernow", [ProductController::class, 'orderNow']);
+
+
 Route::post("orderplace", [ProductController::class, 'orderPlace']);
 Route::get("myorders", [ProductController::class, 'myOrder']);
 
