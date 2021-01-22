@@ -1,10 +1,24 @@
 @extends('master')
 @section('content')
-<div class="container mb-5">
+
+<div class="container custom-login">
     <div class="row">
-        <h1>You are not registered yet</h1>
-        <a class="btn btn-primary" href='/register'>Register?</a>
-        <br><br>
+        <div class="col-sm-4 col-sm-offset-4">
+            <h3>Couldn't find your account </h3>
+            <form action="login" method="POST">
+            <div class="form-group">
+                @csrf
+                <!-- add name the email and the password to input to database-->
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name="password"class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-default">Login</button>
+            </form>
+        </div>
     </div>
 </div>
 @endsection

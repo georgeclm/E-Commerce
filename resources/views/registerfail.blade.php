@@ -18,6 +18,7 @@
             <div class="form-group">
                 <input type="password" name="password"class="form-control" id="exampleInputPassword1" placeholder="Password" required>
             </div>
+            <p>Password didn't match please try again</p>
             <div class="form-group">
                 <input type="password" name="confirmpassword"class="form-control" id="exampleInputPassword1" placeholder="Confirm" required>
             </div>
