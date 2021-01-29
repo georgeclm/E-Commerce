@@ -1,7 +1,7 @@
-# eCom-en-laravel
-## 💻 Install
+# E-Commerce With Laeavel 
+## To use the template
 
-1. **Clone Repository**
+1. **Clone the Repository**
 ```bash
 git clone https://github.com/zuramai/kelaskita.git
 cd kelaskita
