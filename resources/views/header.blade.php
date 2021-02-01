@@ -4,70 +4,73 @@ use App\Http\Controllers\tokoController;
 $total = 0;
 if(Session::has('user')){
   $value = tokoController::hasProfile();
-
 $total= ProductController::cartItem();
 }
 
 ?>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">GeorgeToko</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Home </a></li>
-        <li class=""><a href="myorders">Orders </a></li>
-
-      </ul>
-      <form action= "/search"class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" name="query" class="form-control search-box" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Search</button>
+    <a class="navbar-brand" href="/">
+    <img src="{{ asset('img/logoicon.ico') }}" alt="" width="33" height="33" class="d-inline-block align-top mr-5">    GeorgeToko</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="myorders">Orders</a>
+        </li>
+        </ul>
+        <div class="col-md-8 text-center">
+        <form action= "/search" class="d-flex container-fluid">
+        <input class="form-control me-2" name="query" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/cartlist">Cart {{ $total }}</a></li>
+      </div>
+
+        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
         @if(Session::has('user'))
-        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Toko
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          @if($value == 'no')
-          <li><a href="#">Your Toko</a></li>
-          @else
-          <li><a href="/toko/create">Create Toko</a></li>
-          @endif
+        <li class="nav-item">
+          <a class="nav-link" href="/cartlist">Cart {{ $total }}</a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Toko
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            @if($value == 'no')
+            <li><a class="dropdown-item" href="/tokoprofile/{{ Session::get('user')['id'] }}">Your Toko</a></li>
+            @else
+            <li><a class="dropdown-item" href="/toko/create">Create Toko</a></li>
+            @endif
+          </ul>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ Session::get('user')['name'] }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/profile/{{ Session::get('user')['id'] }}">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+          </ul>
+        </li>
+        @else
+        <li class="nav-item">
+          <a class="nav-link"href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
 
-        </ul>
-      </li>
-      @endif
-        @if(Session::has('user'))
-        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Session::get('user')['name'] }}
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/profile/{{ Session::get('user')['id'] }}">Profile</a></li>
-          <li><a href="/logout">Logout</a></li>
-        </ul>
-      </li>
-      @else
-      <li><a href="/login">Login</a></li>
-      <li><a href="/register">Register</a></li>
-
-
-      @endif
+        @endif
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
-<br><br>
+<br>

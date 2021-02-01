@@ -33,6 +33,8 @@ Route::view('/register','register');
 Route::post("/login", [UserController::class, 'login']);
 Route::get("/toko/create", [tokoController::class, 'index']);
 Route::post("/toko", [tokoController::class, 'createToko']);
+Route::get('/tokoprofile/{id}', [tokoController::class, 'profile']);
+
 
 
 Route::post("/register", [UserController::class, 'register']);

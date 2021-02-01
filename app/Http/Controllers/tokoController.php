@@ -38,4 +38,13 @@ class tokoController extends Controller
         }
     }
 
+    function profile($id)
+    {
+        $tokoId = tokoProfile::where('user_id', $id)
+            ->get('id');
+        $data = tokoProfile::find($tokoId);
+        return view('tokoProfile',['tokoprofile'=> $data]);
+    }
+
+
 }

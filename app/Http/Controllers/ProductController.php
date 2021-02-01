@@ -96,6 +96,7 @@ class ProductController extends Controller
         // on here use sum to sum all and the variable is the product price total
         ->sum('products.price');
         return view('ordernow',['total'=> $total]);
+
         
     }
     // this function to save all the data user inputed and the product to the database
@@ -128,15 +129,22 @@ class ProductController extends Controller
     // this my order will use join again because inside the table orders there is no information about the products so to show the product inside orders we need to join the database
     function myOrder()
     {
-        $userId= Session::get('user')['id'];
-        // first the orders table that is want to get join
-        $orders= DB::table('orders')
-        // join the database with the products and same as prior
-        // how to read this join the first one is the products table and then the second is the orders product id and the last compare with the products.id inside products table
-        ->join('products','orders.product_id','=','products.id')
-        ->where('orders.user_id',$userId)
-        ->get();
-        return view('myorder',['orders'=> $orders]);
+        if(Session::has('user'))
+        {
+            $userId= Session::get('user')['id'];
+            // first the orders table that is want to get join
+            $orders= DB::table('orders')
+            // join the database with the products and same as prior
+            // how to read this join the first one is the products table and then the second is the orders product id and the last compare with the products.id inside products table
+            ->join('products','orders.product_id','=','products.id')
+            ->where('orders.user_id',$userId)
+            ->get();
+            return view('myorder',['orders'=> $orders]);
+        }else
+        {
+            return redirect('/login');
+        }
+
 
     }
 }
