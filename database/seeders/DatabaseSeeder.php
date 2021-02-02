@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         DB::table('users')->insert([
-            'name'=> 'other',
-            'email'=>'georgeclm9@gmail.com',
-            'password'=> bcrypt('123456789')
+            'name' => 'other',
+            'email' => 'georgeclm9@gmail.com',
+            'password' => bcrypt('123456789')
         ]);
-
+        //$this->call(ProductSeeder::class);
     }
 }

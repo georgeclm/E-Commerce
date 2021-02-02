@@ -20,16 +20,16 @@ use App\Http\Controllers\tokoController;
 Route::get('/login', function () {
     return view('login');
 });
-// for the logout route use the get and the function 
+// for the logout route use the get and the function
 Route::get('/logout', function () {
     // forget the session from the browser
-    Session::forget('user');
+    session()->forget('user');
     // redirect to the login page
     return redirect('login');
 });
 Route::get('/profile/{id}', [UserController::class, 'profile']);
 
-Route::view('/register','register');
+Route::view('/register', 'register');
 Route::post("/login", [UserController::class, 'login']);
 Route::get("/toko/create", [tokoController::class, 'index']);
 Route::post("/toko", [tokoController::class, 'createToko']);
@@ -49,13 +49,3 @@ Route::get("ordernow", [ProductController::class, 'orderNow']);
 
 Route::post("orderplace", [ProductController::class, 'orderPlace']);
 Route::get("myorders", [ProductController::class, 'myOrder']);
-
-
-
-
-
-
-
-
-
-
