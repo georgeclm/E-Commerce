@@ -28,7 +28,10 @@ class ProductController extends Controller
     function search(Request $req)
     {
         // for the search engine inside database search all the name like to following value
-        $data = Product::where('name', 'like', '%' . $req->input('query') . '%')->get();
+        $data = Product::where('name', 'like', '%' . $req->input('query') . '%')
+            ->orWhere('category', 'like', '%' . $req->input('query') . '%')
+            ->orWhere('description', 'like', '%' . $req->input('query') . '%')
+            ->get();
         return view('search', ['products' => $data]);
     }
     function addToCart(Request $req)

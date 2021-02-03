@@ -28,16 +28,16 @@ Route::get('/logout', function () {
     return redirect('login');
 });
 Route::get('/profile/{id}', [UserController::class, 'profile']);
-
-Route::view('/register', 'register');
 Route::post("/login", [UserController::class, 'login']);
+Route::view('/register', 'register');
+Route::post("/register", [UserController::class, 'register']);
+
+
 Route::get("/toko/create", [tokoController::class, 'index']);
 Route::post("/toko", [tokoController::class, 'createToko']);
 Route::get('/tokoprofile/{id}', [tokoController::class, 'profile']);
 
 
-
-Route::post("/register", [UserController::class, 'register']);
 Route::get("/", [ProductController::class, 'index']);
 Route::get("/detail/{id}", [ProductController::class, 'detail']);
 Route::get("search", [ProductController::class, 'search']);
@@ -45,7 +45,5 @@ Route::post("add_to_cart", [ProductController::class, 'addToCart']);
 Route::get("cartlist", [ProductController::class, 'cartList']);
 Route::get("removecart/{id}", [ProductController::class, 'removeCart']);
 Route::get("ordernow", [ProductController::class, 'orderNow']);
-
-
 Route::post("orderplace", [ProductController::class, 'orderPlace']);
 Route::get("myorders", [ProductController::class, 'myOrder']);
