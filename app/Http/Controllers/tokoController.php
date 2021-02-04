@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\tokoProfile;
 
@@ -41,6 +42,18 @@ class tokoController extends Controller
         $tokoId = tokoProfile::where('user_id', $id)
             ->get('id');
         $data = tokoProfile::find($tokoId);
-        return view('tokoProfile', ['tokoprofile' => $data]);
+        $toko = Product::where('user_id', $id)
+            ->get();
+        return view('tokoProfile', ['tokoprofile' => $data, 'products' => $toko]);
+    }
+    static function hasProduct()
+    {
+        $userId = session()->get('user')['id'];
+        $data = Product::where('user_id', $userId)->count();
+        if ($data == 0) {
+            return 'yes';
+        } else {
+            return 'no';
+        }
     }
 }

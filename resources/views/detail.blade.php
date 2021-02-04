@@ -4,10 +4,10 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <img class="detail-img" src="{{ $product['gallery'] }}" alt="">
+                <img class="detail-img" src="{{ asset("products/{$product['gallery']}") }}" alt="">
             </div>
             <div class="col-sm-6">
-                <a href="/">Go back</a>
+                <a href="/" class="btn btn-outline-danger">Go back</a>
                 <h2>{{ $product->name }}</h2>
                 <h3>Price: $ {{ $product->price }}</h3>
                 <h4>Description: {{ $product->description }}</h4>
@@ -20,7 +20,12 @@
                     <button class="btn btn-primary">Add to cart</button><br><br>
 
                 </form>
-                <button class="btn btn-success">Buy Now</button>
+                <form action='/buynow' method="POST">
+                    @csrf
+
+                    <input type="hidden" name="product_id" value="{{ $product['id'] }}">
+                    <button class="btn btn-success">Buy Now</button>
+                </form>
 
 
             </div>

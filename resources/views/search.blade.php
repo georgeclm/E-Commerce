@@ -7,20 +7,27 @@
         <div class="text-center">
             <div class="col-md-12">
                 <div class="trending-wrapper m-auto">
-                    <h2 class="text-center text-primary mb-4">Result for Products</h2>
-                    @foreach ($products as $item)
-                        <div class="searched-item link-web">
-                            <a href="detail/{{ $item['id'] }}">
-                                <img class="trending-image-search" src="{{ $item['gallery'] }}">
-                                <div class="text-center mt-2">
-                                    <h3>{{ $item['name'] }}</h3>
-                                    <h5>{{ $item['description'] }}</h5>
+                    <h2 class="mb-4">Result for Products</h2>
+                    <div class="row row-cols-1 row-cols-md-6">
+                        @foreach ($products as $item)
+                            <div class="col mb-4 link-web">
+                                <a href="detail/{{ $item['id'] }}">
+                                    <div class="card h-100 rounded" style="width: 12rem;">
+                                        <img src="{{ asset("products/{$item['gallery']}") }}" class="card-img-top"
+                                            style="width: 12rem;
+                                                                                                                        height: 12rem;
+                                                                                                                        background-size: cover;
+                                                                                                                        background-position: center;">
+                                        <div class="card-body">
+                                            <h6 class="card-title">{{ $item['name'] }}</h6>
+                                            <h5 class="card-text"> $ {{ $item['price'] }}</h5>
 
-                                </div>
-                            </a>
-                        </div>
-                        <br><br>
-                    @endforeach
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

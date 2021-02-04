@@ -27,23 +27,35 @@ Route::get('/logout', function () {
     // redirect to the login page
     return redirect('login');
 });
-Route::get('/profile/{id}', [UserController::class, 'profile']);
 Route::post("/login", [UserController::class, 'login']);
 Route::view('/register', 'register');
 Route::post("/register", [UserController::class, 'register']);
 
-
 Route::get("/toko/create", [tokoController::class, 'index']);
 Route::post("/toko", [tokoController::class, 'createToko']);
 Route::get('/tokoprofile/{id}', [tokoController::class, 'profile']);
+Route::get('/profile/{id}', [UserController::class, 'profile']);
+Route::post("/add_to_cart", [ProductController::class, 'addToCart']);
+Route::post("/buynow", [ProductController::class, 'buyNow']);
+
+Route::get("cartlist", [ProductController::class, 'cartList']);
+Route::get("removecart/{id}", [ProductController::class, 'removeCart']);
+Route::get("ordernow", [ProductController::class, 'orderNow']);
+Route::post("orderplace", [ProductController::class, 'orderPlace']);
+Route::post("/order1", [ProductController::class, 'order1']);
+
+Route::get("myorders", [ProductController::class, 'myOrder']);
+Route::get("/product/create", [ProductController::class, 'create']);
+Route::post("/product", [ProductController::class, 'store']);
+
+
+
+
+
+
 
 
 Route::get("/", [ProductController::class, 'index']);
 Route::get("/detail/{id}", [ProductController::class, 'detail']);
 Route::get("search", [ProductController::class, 'search']);
-Route::post("add_to_cart", [ProductController::class, 'addToCart']);
-Route::get("cartlist", [ProductController::class, 'cartList']);
-Route::get("removecart/{id}", [ProductController::class, 'removeCart']);
-Route::get("ordernow", [ProductController::class, 'orderNow']);
-Route::post("orderplace", [ProductController::class, 'orderPlace']);
-Route::get("myorders", [ProductController::class, 'myOrder']);
+Route::resource('products', 'App\Http\Controllers\ProductController');
