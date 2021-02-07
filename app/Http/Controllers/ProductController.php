@@ -156,7 +156,7 @@ class ProductController extends Controller
         ]);
         if ($request->hasFile('gallery')) {
             $request->validate([
-                'image' => 'mimes:jpeg,bmp,png' // Only allow .jpg, .bmp and .png file types.
+                'gallery' => 'mimes:jpeg,bmp,png' // Only allow .jpg, .bmp and .png file types.
             ]);
         }
         $request->file('gallery')->store('product', 'public');
