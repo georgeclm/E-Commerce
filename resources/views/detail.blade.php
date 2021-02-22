@@ -1,9 +1,9 @@
 @extends('master')
 @section('content')
     <br>
-    <div class="container">
+    <div class="container" width="65%">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6 m-auto text-center">
                 <img class="detail-img" src="{{ asset("products/{$product['gallery']}") }}" alt="">
             </div>
             <div class="col-sm-6">

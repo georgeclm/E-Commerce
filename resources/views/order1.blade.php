@@ -31,9 +31,12 @@
                     </div>
                     <div class="form-group">
                         <label for="pwd">Payment Method:</label> <br><br>
-                        <input type="radio" value="cash" name="payment" id=""><span> Online Payment</span> <br><br>
-                        <input type="radio" value="cash" name="payment" id=""><span> Cash On Delivery</span><br><br>
-                        <input type="radio" value="cash" name="payment" id=""><span> Shop Outlet</span> <br><br>
+                        <input type="radio" value="cash" class="form-check-input" name="payment" id=""><span> Online
+                            Payment</span> <br><br>
+                        <input type="radio" value="cash" class="form-check-input" name="payment" id=""><span> Cash On
+                            Delivery</span><br><br>
+                        <input type="radio" value="cash" class="form-check-input" name="payment" id=""><span> Shop
+                            Outlet</span> <br><br>
                     </div>
                     <input type="hidden" name="product_id" value="{{ $productId }}">
 
