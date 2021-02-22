@@ -1,17 +1,20 @@
 <?php
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\tokoController;
+use App\Http\Controllers\UserController;
 $total = 0;
 if (Session::has('user')) {
 $value = tokoController::hasProfile();
-$total = ProductController::cartItem();
+$total = CartController::cartItem();
 }
+$home = UserController::active();
+$order = UserController::orderActive();
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
             <img src="{{ asset('img/logoicon.ico') }}" alt="" width="33" height="33"
-                class="d-inline-block align-top mr-5"> GeorgeToko</a>
+                class="d-inline-block align-top mr-5"> TokoApp</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,10 +22,12 @@ $total = ProductController::cartItem();
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link @if ($home) active @endif"
+                        aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/myorders">Orders</a>
+                    <a class="nav-link @if ($order) active @endif"
+                        href="/myorders">Orders</a>
                 </li>
             </ul>
             <div class="col-md-8 text-center">
@@ -81,4 +86,20 @@ $total = ProductController::cartItem();
         </div>
     </div>
 </nav>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            <h1>{{ $errors->first() }}</h1>
+        </ul>
+    </div>
+@endif
+
+@if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <h1>{!! \Session::get('success') !!}</h1>
+        </ul>
+    </div>
+@endif
+
 <br>

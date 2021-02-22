@@ -1,4 +1,6 @@
 @extends('master')
+@section('title', 'Profile - TokoApp')
+
 @section('content')
     <br>
     <div class="container">

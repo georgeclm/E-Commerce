@@ -1,4 +1,6 @@
 @extends('master')
+@section('title', 'Order - TokoApp')
+
 @section('content')
     <div class="container">
         <div class="col-sm-10">

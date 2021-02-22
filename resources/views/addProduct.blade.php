@@ -1,4 +1,5 @@
 @extends('master')
+@section('title', 'Add Product - TokoApp')
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">

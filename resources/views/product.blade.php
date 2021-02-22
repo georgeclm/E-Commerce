@@ -1,4 +1,6 @@
 @extends('master')
+@section('title', 'TokoApp')
+
 @section('content')
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
         <ol class="carousel-indicators">
@@ -45,9 +47,9 @@
                             <div class="card h-100 rounded" style="width: 12rem;">
                                 <img src="{{ asset("products/{$item['gallery']}") }}" class="card-img-top"
                                     style="width: 12rem;
-                                                                                                            height: 12rem;
-                                                                                                            background-size: cover;
-                                                                                                            background-position: center;">
+                                                                                                                height: 12rem;
+                                                                                                                background-size: cover;
+                                                                                                                background-position: center;">
                                 <div class="card-body">
                                     <h6 class="card-title">{{ $item['name'] }}</h6>
                                     <h5 class="card-text"> $ {{ $item['price'] }}</h5>

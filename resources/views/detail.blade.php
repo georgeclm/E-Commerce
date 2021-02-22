@@ -1,4 +1,5 @@
 @extends('master')
+@section('title', "{$product->name} - TokoApp")
 @section('content')
     <br>
     <div class="container" width="65%">

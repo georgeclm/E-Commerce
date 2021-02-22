@@ -1,11 +1,13 @@
 <?php
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 $total = 0;
 if (Session::has('user')) {
-$value = ProductController::hasOrder();
+$value = OrderController::hasOrder();
 }
 ?>
 @extends('master')
+@section('title', 'My Orders - TokoApp')
+
 @section('content')
     <div class="container">
         <div class="col-sm-10">

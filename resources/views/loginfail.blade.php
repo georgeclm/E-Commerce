@@ -1,4 +1,6 @@
 @extends('master')
+@section('title', 'Login - TokoApp')
+
 @section('content')
 
     <div class="container custom-login">

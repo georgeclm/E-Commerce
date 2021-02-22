@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\tokoController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,7 @@ use App\Http\Controllers\tokoController;
 |
 */
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login', [UserController::class, 'index']);
 // for the logout route use the get and the function
 Route::get('/logout', function () {
     // forget the session from the browser
@@ -35,16 +34,16 @@ Route::get("/toko/create", [tokoController::class, 'index']);
 Route::post("/toko", [tokoController::class, 'createToko']);
 Route::get('/tokoprofile/{id}', [tokoController::class, 'profile']);
 Route::get('/profile/{id}', [UserController::class, 'profile']);
-Route::post("/add_to_cart", [ProductController::class, 'addToCart']);
-Route::post("/buynow", [ProductController::class, 'buyNow']);
+Route::post("/add_to_cart", [CartController::class, 'addToCart']);
+Route::post("/buynow", [OrderController::class, 'buyNow']);
 
-Route::get("cartlist", [ProductController::class, 'cartList']);
-Route::get("removecart/{id}", [ProductController::class, 'removeCart']);
-Route::get("ordernow", [ProductController::class, 'orderNow']);
-Route::post("orderplace", [ProductController::class, 'orderPlace']);
+Route::get("cartlist", [CartController::class, 'cartList']);
+Route::get("removecart/{id}", [CartController::class, 'removeCart']);
+Route::get("ordernow", [OrderController::class, 'orderNow']);
+Route::post("orderplace", [OrderController::class, 'orderPlace']);
 Route::post("/order1", [ProductController::class, 'order1']);
 
-Route::get("myorders", [ProductController::class, 'myOrder']);
+Route::get("myorders", [OrderController::class, 'myOrder']);
 Route::get("/product/create", [ProductController::class, 'create']);
 Route::post("/product", [ProductController::class, 'store']);
 

@@ -1,12 +1,15 @@
+<?php
+use App\Http\Controllers\CartController;
+
+if (Session::has('user')) {
+$total = CartController::cartItem();
+$value = CartController::hasCart();
+}
+?>
 @extends('master')
+@section('title', 'Your Cart - TokoApp')
 @section('content')
-    <?php
-    use App\Http\Controllers\ProductController;
-    if (Session::has('user')) {
-    $total = ProductController::cartItem();
-    $value = ProductController::hasCart();
-    }
-    ?>
+
     <div class="container">
         <div class="col-sm-10">
             <div class="trending-wrapper">
@@ -30,7 +33,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <a href="/removecart/{{ $products[$i]->cart_id }}" class="btn
-                                                                    btn-warning">Remove from
+                                                                                    btn-warning">Remove from
                                     Cart</a>
                             </div>
                         </div>
