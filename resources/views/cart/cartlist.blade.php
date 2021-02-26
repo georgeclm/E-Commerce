@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\CartController;
 
-if (Session::has('user')) {
+if (Auth::user()) {
 $total = CartController::cartItem();
 $value = CartController::hasCart();
 }
@@ -33,7 +33,7 @@ $value = CartController::hasCart();
                             </div>
                             <div class="col-sm-3">
                                 <a href="/removecart/{{ $products[$i]->cart_id }}" class="btn
-                                                                                    btn-warning">Remove from
+                                                                                                btn-warning">Remove from
                                     Cart</a>
                             </div>
                         </div>

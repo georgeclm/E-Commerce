@@ -11,7 +11,7 @@ class CartController extends Controller
 {
     function addToCart(Request $req)
     {
-        if ($req->session()->has('user')) {
+        if (Auth::user()) {
             // everytime the user hit addtocart then create new class cart
             $cart = new Cart;
             // take the user id from the session
@@ -51,7 +51,7 @@ class CartController extends Controller
             // take the cart id to make it can remove the products function
             ->select('products.*', 'cart.id as cart_id')
             ->get();
-        return view('cartlist', ['products' => $products]);
+        return view('cart.cartlist', ['products' => $products]);
     }
     function removeCart($id)
     {

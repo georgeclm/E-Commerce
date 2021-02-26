@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 
@@ -18,12 +19,12 @@ class ProductController extends Controller
     function index()
     {
         $data = Product::all();
-        return view('product', ['products' => $data]);
+        return view('product.product', ['products' => $data]);
     }
     function detail($id)
     {
         $data = Product::find($id);
-        return view('detail', ['product' => $data]);
+        return view('product.detail', ['product' => $data]);
     }
     function search(Request $req)
     {
@@ -32,11 +33,11 @@ class ProductController extends Controller
             ->orWhere('category', 'LIKE', '%' . $req->input('query') . '%')
             ->orWhere('description', 'LIKE', '%' . $req->input('query') . '%')
             ->get();
-        return view('search', ['products' => $data]);
+        return view('product.search', ['products' => $data]);
     }
     public function create()
     {
-        return view('addProduct');
+        return view('product.addProduct');
     }
     public function store(Request $request)
     {
@@ -52,7 +53,7 @@ class ProductController extends Controller
             ]);
         }
         $request->file('gallery')->store('product', 'public');
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         $product = new Product([
             "name" => $request->get('productname'),
             "price" => $request->get('price'),
@@ -66,7 +67,7 @@ class ProductController extends Controller
     }
     public function order1(Request $request)
     {
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         $order = new Order;
         $order->product_id = $request->product_id;
         $order->user_id = $userId;

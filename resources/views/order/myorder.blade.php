@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\OrderController;
 $total = 0;
-if (Session::has('user')) {
+if (Auth::user()) {
 $value = OrderController::hasOrder();
 }
 ?>

@@ -11,7 +11,7 @@ class tokoController extends Controller
 {
     function index()
     {
-        return view('toko');
+        return view('profile.toko');
     }
     function createToko(Request $req)
     {
@@ -25,16 +25,7 @@ class tokoController extends Controller
             return redirect('/');
         }
     }
-    static function hasProfile()
-    {
-        $userId = Auth::user()->id;
-        $data = tokoProfile::where('user_id', $userId)->count();
-        if ($data == 0) {
-            return 'yes';
-        } else {
-            return 'no';
-        }
-    }
+
 
     function profile($id)
     {
@@ -43,7 +34,7 @@ class tokoController extends Controller
         $data = tokoProfile::find($tokoId);
         $toko = Product::where('user_id', $id)
             ->get();
-        return view('tokoProfile', ['tokoprofile' => $data, 'products' => $toko]);
+        return view('profile.tokoProfile', ['tokoprofile' => $data, 'products' => $toko]);
     }
     static function hasProduct()
     {

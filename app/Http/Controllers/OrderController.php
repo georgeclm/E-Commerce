@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -12,20 +13,20 @@ class OrderController extends Controller
     // for the order now button to set the sum same with the cart list
     function orderNow()
     {
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         $total = $products = DB::table('cart')
             ->join('products', 'cart.product_id', '=', 'products.id')
             ->where('cart.user_id', $userId)
             ->select('products.*', 'cart.id as cart_id')
             // on here use sum to sum all and the variable is the product price total
             ->sum('products.price');
-        return view('ordernow', ['total' => $total]);
+        return view('order.ordernow', ['total' => $total]);
     }
     // this function to save all the data user inputed and the product to the database
     function orderPlace(Request $req)
     {
         // take the user id from the session
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         // store all data inside the variable
         $allCart = Cart::where('user_id', $userId)->get();
         // loop through the list inside the cart and store each to the database
@@ -50,8 +51,8 @@ class OrderController extends Controller
     // this my order will use join again because inside the table orders there is no information about the products so to show the product inside orders we need to join the database
     function myOrder()
     {
-        if (session()->has('user')) {
-            $userId = session()->get('user')['id'];
+        if (Auth::user()) {
+            $userId = Auth::user()->id;
             // first the orders table that is want to get join
             $orders = DB::table('orders')
                 // join the database with the products and same as prior
@@ -59,16 +60,16 @@ class OrderController extends Controller
                 ->join('products', 'orders.product_id', '=', 'products.id')
                 ->where('orders.user_id', $userId)
                 ->get();
-            return view('myorder', ['orders' => $orders]);
+            return view('order.myorder', ['orders' => $orders]);
         } else {
             return redirect('/login');
         }
     }
     public function buyNow(Request $request)
     {
-        if ($request->session()->has('user')) {
+        if ($request->Auth::user()) {
             $cart = new Cart;
-            $cart->user_id = $request->session()->get('user')['id'];
+            $cart->user_id = $request->Auth::user()->id;
             $cart->product_id = $request->product_id;
             $cart->save();
             $total = $products = DB::table('cart')
@@ -78,14 +79,14 @@ class OrderController extends Controller
                 // on here use sum to sum all and the variable is the product price total
                 ->sum('products.price');
             $productId = $request->product_id;
-            return view('order1', ['total' => $total, 'productId' => $productId]);
+            return view('order.order1', ['total' => $total, 'productId' => $productId]);
         } else {
             return redirect('/login');
         }
     }
     static function hasOrder()
     {
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         $data = Order::where('user_id', $userId)->count();
         if ($data == 0) {
             return 'yes';

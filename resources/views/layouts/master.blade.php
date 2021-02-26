@@ -4,36 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSRF Token-->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- For Laravel Mix-->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!--For title-->
     <title>@yield('title')</title>
+    <!-- Browser Icon-->
     <link rel="shortcut icon" href="{{ asset('img/logoicon.ico') }}" />
     <!-- Latest compiled and minified CSS for bootstrap cdn-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <!-- Jquery cdn  -->
 </head>
 
 <body>
-    {{ View::make('header') }}
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                <h6>{{ $errors->first() }}</h6>
-            </ul>
-        </div>
-    @endif
+    <div id="app">
 
-    @if (\Session::has('success'))
-        <div class="alert alert-success">
-            <ul>
-                <h6>{!! \Session::get('success') !!}</h6>
-            </ul>
-        </div>
-    @endif
+        <x-header />
+        @if (Session::has('error'))
+            <div class="alert alert-danger">
+                {{ Session::get('error') }}
+            </div>
+        @endif
 
-    @yield('content')
+        @if (Session::has('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <h6>{!! \Session::get('success') !!}</h6>
+                </ul>
+            </div>
+        @endif
 
+        <main class="py-4">
+            @yield('content')
+        </main>
 
-    {{ View::make('footer') }}
+    </div>
+    <x-footer />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
     </script> <!-- Latest compiled and minified JavaScript from bootstrap cdn-->

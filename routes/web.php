@@ -19,18 +19,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/login', [UserController::class, 'index']);
-// // for the logout route use the get and the function
-// Route::get('/logout', function () {
-//     // forget the session from the browser
-//     session()->forget('user');
-//     // redirect to the login page
-//     return redirect('login');
-// });
-// Route::post("/login", [UserController::class, 'login']);
-// Route::view('/register', 'register');
-// Route::post("/register", [UserController::class, 'register']);
-
 Route::get("/toko/create", [tokoController::class, 'index']);
 Route::post("/toko", [tokoController::class, 'createToko']);
 Route::get('/tokoprofile/{id}', [tokoController::class, 'profile']);
@@ -44,16 +32,9 @@ Route::get("ordernow", [OrderController::class, 'orderNow']);
 Route::post("orderplace", [OrderController::class, 'orderPlace']);
 Route::post("/order1", [ProductController::class, 'order1']);
 
-Route::get("myorders", [OrderController::class, 'myOrder']);
+Route::get("/myorders", [OrderController::class, 'myOrder']);
 Route::get("/product/create", [ProductController::class, 'create']);
 Route::post("/product", [ProductController::class, 'store']);
-
-
-
-
-
-
-
 
 Route::get("/", [ProductController::class, 'index']);
 Route::get("/detail/{id}", [ProductController::class, 'detail']);
