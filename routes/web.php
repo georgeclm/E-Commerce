@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\tokoController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,17 +19,17 @@ use App\Http\Controllers\tokoController;
 |
 */
 
-Route::get('/login', [UserController::class, 'index']);
-// for the logout route use the get and the function
-Route::get('/logout', function () {
-    // forget the session from the browser
-    session()->forget('user');
-    // redirect to the login page
-    return redirect('login');
-});
-Route::post("/login", [UserController::class, 'login']);
-Route::view('/register', 'register');
-Route::post("/register", [UserController::class, 'register']);
+// Route::get('/login', [UserController::class, 'index']);
+// // for the logout route use the get and the function
+// Route::get('/logout', function () {
+//     // forget the session from the browser
+//     session()->forget('user');
+//     // redirect to the login page
+//     return redirect('login');
+// });
+// Route::post("/login", [UserController::class, 'login']);
+// Route::view('/register', 'register');
+// Route::post("/register", [UserController::class, 'register']);
 
 Route::get("/toko/create", [tokoController::class, 'index']);
 Route::post("/toko", [tokoController::class, 'createToko']);

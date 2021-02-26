@@ -6,7 +6,7 @@ $total = CartController::cartItem();
 $value = CartController::hasCart();
 }
 ?>
-@extends('master')
+@extends('layouts.master')
 @section('title', 'Your Cart - TokoApp')
 @section('content')
 

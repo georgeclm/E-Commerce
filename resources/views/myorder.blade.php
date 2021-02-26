@@ -5,7 +5,7 @@ if (Session::has('user')) {
 $value = OrderController::hasOrder();
 }
 ?>
-@extends('master')
+@extends('layouts.master')
 @section('title', 'My Orders - TokoApp')
 
 @section('content')

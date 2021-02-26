@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\tokoProfile;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class tokoController extends Controller
 {
@@ -21,14 +20,14 @@ class tokoController extends Controller
             $toko->tokoname = $req['tokoname'];
             $toko->address = $req['address'];
             $toko->url = $req['url'];
-            $toko->user_id = $req->session()->get('user')['id'];
+            $toko->user_id = Auth::user()->id;
             $toko->save();
             return redirect('/');
         }
     }
     static function hasProfile()
     {
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         $data = tokoProfile::where('user_id', $userId)->count();
         if ($data == 0) {
             return 'yes';
@@ -48,7 +47,7 @@ class tokoController extends Controller
     }
     static function hasProduct()
     {
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         $data = Product::where('user_id', $userId)->count();
         if ($data == 0) {
             return 'yes';

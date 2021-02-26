@@ -3,7 +3,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\tokoController;
 use App\Http\Controllers\UserController;
 $total = 0;
-if (Session::has('user')) {
+if (Auth::user()) {
 $value = tokoController::hasProfile();
 $total = CartController::cartItem();
 }
@@ -25,10 +25,13 @@ $order = UserController::orderActive();
                     <a class="nav-link @if ($home) active @endif"
                         aria-current="page" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @if ($order) active @endif"
-                        href="/myorders">Orders</a>
-                </li>
+                @guest
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link @if ($order) active @endif"
+                            href="/myorders">Orders</a>
+                    </li>
+                @endguest
             </ul>
             <div class="col-md-8 text-center">
                 <form action="/search" class="d-flex container-fluid">
@@ -39,7 +42,16 @@ $order = UserController::orderActive();
             </div>
 
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-                @if (Session::has('user'))
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+
+                @else
+
                     <li class="nav-item">
                         <a class="nav-link" href="/cartlist">Cart {{ $total }}</a>
                     </li>
@@ -51,7 +63,7 @@ $order = UserController::orderActive();
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @if ($value == 'no')
-                                <li><a class="dropdown-item" href="/tokoprofile/{{ Session::get('user')['id'] }}">Your
+                                <li><a class="dropdown-item" href="/tokoprofile/{{ Auth::user()->id }}">Your
                                         Toko</a></li>
                             @else
                                 <li><a class="dropdown-item" href="/toko/create">Create Toko</a></li>
@@ -62,44 +74,26 @@ $order = UserController::orderActive();
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Session::get('user')['name'] }}
+                            {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/profile/{{ Session::get('user')['id'] }}">Profile</a>
+                            <li><a class="dropdown-item" href="/profile/{{ Auth::user()->id }}">Profile</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
                         </ul>
                     </li>
-                @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-
-                @endif
+                @endguest
             </ul>
         </div>
     </div>
 </nav>
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            <h1>{{ $errors->first() }}</h1>
-        </ul>
-    </div>
-@endif
-
-@if (\Session::has('success'))
-    <div class="alert alert-success">
-        <ul>
-            <h1>{!! \Session::get('success') !!}</h1>
-        </ul>
-    </div>
-@endif
-
-<br>

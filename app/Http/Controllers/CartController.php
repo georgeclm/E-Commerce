@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
@@ -14,7 +15,7 @@ class CartController extends Controller
             // everytime the user hit addtocart then create new class cart
             $cart = new Cart;
             // take the user id from the session
-            $cart->user_id = $req->session()->get('user')['id'];
+            $cart->user_id = Auth::user()->id;
             // from the name inside the input text to take the product id
             $cart->product_id = $req->product_id;
             // save to the database cart
@@ -28,7 +29,7 @@ class CartController extends Controller
     }
     static function cartItem()
     {
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         return Cart::where('user_id', $userId)->count();
     }
     // this cartlist is going to use the join function inside the databse
@@ -37,7 +38,7 @@ class CartController extends Controller
     function cartList()
     {
         // take the user id from the section for variable
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         // create the products database
         $products = DB::table('cart')
             // join take 3 parameter first for the product the second is the product id from cart and it have to be same with the products id
@@ -61,7 +62,7 @@ class CartController extends Controller
     }
     static function hasCart()
     {
-        $userId = session()->get('user')['id'];
+        $userId = Auth::user()->id;
         $data = Cart::where('user_id', $userId)->count();
         if ($data == 0) {
             return 'yes';

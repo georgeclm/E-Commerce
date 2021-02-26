@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master')
 @section('title', 'Create Toko - TokoApp')
 
 @section('content')
