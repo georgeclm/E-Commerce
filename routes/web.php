@@ -39,8 +39,6 @@ Route::post("/product", [ProductController::class, 'store']);
 Route::get("/", [ProductController::class, 'index']);
 Route::get("/detail/{id}", [ProductController::class, 'detail']);
 Route::get("search", [ProductController::class, 'search']);
-Route::resource('products', 'App\Http\Controllers\ProductController');
+// Route::resource('products', 'App\Http\Controllers\ProductController');
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

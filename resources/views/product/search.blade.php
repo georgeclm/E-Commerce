@@ -11,23 +11,27 @@
                 <div class="trending-wrapper m-auto">
                     <h2 class="mb-4">Result for Products</h2>
                     <div class="row row-cols-1 row-cols-md-6">
-                        @foreach ($products as $item)
-                            <div class="col mb-4 link-web">
-                                <a href="detail/{{ $item['id'] }}">
-                                    <div class="card h-100 rounded" style="width: 12rem;">
-                                        <img src="{{ asset("products/{$item['gallery']}") }}" class="card-img-top" style="width: 12rem;
-                                                                            height: 12rem;
-                                                                            background-size: cover;
-                                                                            background-position: center;">
-                                        <div class="card-body">
-                                            <h6 class="card-title">{{ $item['name'] }}</h6>
-                                            <h5 class="card-text"> $ {{ $item['price'] }}</h5>
+                        @if ($products->count())
+                            @foreach ($products as $item)
+                                <div class="col mb-4 link-web">
+                                    <a href="detail/{{ $item->id }}">
+                                        <div class="card h-100 rounded" style="width: 12rem;">
+                                            <img src="{{ asset("products/{$item->gallery}") }}" class="card-img-top"
+                                                style="width: 12rem; height: 12rem; background-size: cover; background-position: center;">
+                                            <div class="card-body">
+                                                <h6 class="card-title">{{ $item->name }}</h6>
+                                                <h5 class="card-text"> $ {{ number_format($item->price) }}</h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                                    </a>
+                                </div>
+                            @endforeach
+                        @else
+
                     </div>
+                    <div class="h4 text-center">No Product Found</div>
+                    @endif
+
                 </div>
             </div>
         </div>
