@@ -22,14 +22,14 @@ class header extends Component
     public function __construct()
     {
         if (Auth::user()) {
-            $userId = Auth::user()->id;
+            $userId = auth()->id();
             $data = tokoProfile::where('user_id', $userId)->count();
             if ($data == 0) {
                 $this->value =  false;
             } else {
                 $this->value =  true;
             }
-            $userId = Auth::user()->id;
+            $userId = auth()->id();
             $this->total = Cart::where('user_id', $userId)->count();
         }
         $currentURL = url()->current();

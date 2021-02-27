@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function profile($id)
     {
-        $data = User::find($id);
-        return view('profile.profile', ['user' => $data]);
+        $user = User::find($id);
+        return view('profile.profile', compact('user'));
     }
 }

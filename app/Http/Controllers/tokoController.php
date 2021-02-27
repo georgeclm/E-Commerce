@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\tokoProfile;
-use Illuminate\Support\Facades\Auth;
 
 class tokoController extends Controller
 {
@@ -15,15 +14,13 @@ class tokoController extends Controller
     }
     function createToko(Request $req)
     {
-        if ($req->session()->has('user')) {
-            $toko = new tokoProfile;
-            $toko->tokoname = $req['tokoname'];
-            $toko->address = $req['address'];
-            $toko->url = $req['url'];
-            $toko->user_id = Auth::user()->id;
-            $toko->save();
-            return redirect('/');
-        }
+        $toko = new tokoProfile;
+        $toko->tokoname = $req['tokoname'];
+        $toko->address = $req['address'];
+        $toko->url = $req['url'];
+        $toko->user_id = auth()->id();
+        $toko->save();
+        return redirect('/');
     }
 
 
@@ -31,15 +28,14 @@ class tokoController extends Controller
     {
         $tokoId = tokoProfile::where('user_id', $id)
             ->get('id');
-        $data = tokoProfile::find($tokoId);
-        $toko = Product::where('user_id', $id)
+        $tokoprofile = tokoProfile::find($tokoId);
+        $products = Product::where('user_id', $id)
             ->get();
-        return view('profile.tokoProfile', ['tokoprofile' => $data, 'products' => $toko]);
+        return view('profile.tokoProfile', compact('tokoprofile', 'products'));
     }
     static function hasProduct()
     {
-        $userId = Auth::user()->id;
-        $data = Product::where('user_id', $userId)->count();
+        $data = Product::where('user_id', auth()->id())->count();
         if ($data == 0) {
             return 'yes';
         } else {

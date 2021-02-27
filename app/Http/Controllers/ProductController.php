@@ -6,12 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
 
 
-// this is to use to join the databse inside the controller for the cart list
-use Illuminate\Support\Facades\DB;
 
 
 class ProductController extends Controller
@@ -29,9 +25,10 @@ class ProductController extends Controller
     function search(Request $req)
     {
         // for the search engine inside database search all the name like to following value
-        $data = Product::where('name', 'LIKE', '%' . $req->input('query') . '%')
-            ->orWhere('category', 'LIKE', '%' . $req->input('query') . '%')
-            ->orWhere('description', 'LIKE', '%' . $req->input('query') . '%')
+        $query = $req->input('query');
+        $data = Product::where('name', 'LIKE', '%' . $query . '%')
+            ->orWhere('category', 'LIKE', '%' . $query . '%')
+            ->orWhere('description', 'LIKE', '%' . $query . '%')
             ->get();
         return view('product.search', ['products' => $data]);
     }
@@ -53,21 +50,20 @@ class ProductController extends Controller
             ]);
         }
         $request->file('gallery')->store('product', 'public');
-        $userId = Auth::user()->id;
         $product = new Product([
             "name" => $request->get('productname'),
             "price" => $request->get('price'),
             "category" => $request->get('category'),
             "description" => $request->get('description'),
             "gallery" => $request->file('gallery')->hashName(),
-            "user_id" => $userId
+            "user_id" => auth()->id()
         ]);
         $product->save(); // Finally, save the record.
         return redirect('/');
     }
     public function order1(Request $request)
     {
-        $userId = Auth::user()->id;
+        $userId = auth()->id();
         $order = new Order;
         $order->product_id = $request->product_id;
         $order->user_id = $userId;

@@ -11,25 +11,21 @@ class CartController extends Controller
 {
     function addToCart(Request $req)
     {
-        if (Auth::user()) {
-            // everytime the user hit addtocart then create new class cart
-            $cart = new Cart;
-            // take the user id from the session
-            $cart->user_id = Auth::user()->id;
-            // from the name inside the input text to take the product id
-            $cart->product_id = $req->product_id;
-            // save to the database cart
-            $cart->save();
+        // everytime the user hit addtocart then create new class cart
+        $cart = new Cart;
+        // take the user id from the session
+        $cart->user_id = auth()->id();
+        // from the name inside the input text to take the product id
+        $cart->product_id = $req->product_id;
+        // save to the database cart
+        $cart->save();
 
-            return redirect('/');
-        } else {
-            return redirect('/login');
-        }
+        return redirect('/');
         // so the real value can get putted inside the header cart item need to use static
     }
     static function cartItem()
     {
-        $userId = Auth::user()->id;
+        $userId = auth()->id();
         return Cart::where('user_id', $userId)->count();
     }
     // this cartlist is going to use the join function inside the databse
@@ -38,7 +34,7 @@ class CartController extends Controller
     function cartList()
     {
         // take the user id from the section for variable
-        $userId = Auth::user()->id;
+        $userId = auth()->id();
         // create the products database
         $products = DB::table('cart')
             // join take 3 parameter first for the product the second is the product id from cart and it have to be same with the products id
@@ -51,7 +47,7 @@ class CartController extends Controller
             // take the cart id to make it can remove the products function
             ->select('products.*', 'cart.id as cart_id')
             ->get();
-        return view('cart.cartlist', ['products' => $products]);
+        return view('cart.cartlist', compact('products'));
     }
     function removeCart($id)
     {
@@ -62,7 +58,7 @@ class CartController extends Controller
     }
     static function hasCart()
     {
-        $userId = Auth::user()->id;
+        $userId = auth()->id();
         $data = Cart::where('user_id', $userId)->count();
         if ($data == 0) {
             return 'yes';

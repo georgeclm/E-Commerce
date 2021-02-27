@@ -53,7 +53,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @if ($value == 'no')
-                                    <li><a class="dropdown-item" href="/tokoprofile/{{ Auth::user()->id }}">Your
+                                    <li><a class="dropdown-item" href="/tokoprofile/{{ auth()->id() }}">Your
                                             Toko</a></li>
                                 @else
                                     <li><a class="dropdown-item" href="/toko/create">Create Toko</a></li>
@@ -67,7 +67,7 @@
                                 {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/profile/{{ Auth::user()->id }}">Profile</a>
+                                <li><a class="dropdown-item" href="/profile/{{ auth()->id() }}">Profile</a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
