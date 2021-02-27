@@ -15,7 +15,7 @@ $value = CartController::hasCart();
             <div class="trending-wrapper">
                 @if ($value == 'no')
                     <h2 class="mb-3">Your Cart</h2>
-                    <a class="btn btn-success" href="ordernow">Order Now</a> <br><br>
+                    <a class="btn btn-success" href="/ordernow">Order Now</a> <br><br>
                     @for ($i = 0; $i < count($products); $i++)
                         <div class="row searched-item cart-list-divider">
                             <div class="col-sm-3">
@@ -33,7 +33,8 @@ $value = CartController::hasCart();
                             </div>
                             <div class="col-sm-3">
                                 <a href="/removecart/{{ $products[$i]->cart_id }}" class="btn
-                                                                                                btn-warning">Remove from
+                                                                                                    btn-warning">Remove
+                                    from
                                     Cart</a>
                             </div>
                         </div>
@@ -60,7 +61,7 @@ $value = CartController::hasCart();
                         @endforeach --}}
 
                     @if ($total > 4)
-                        <a class="btn btn-success" href="ordernow">Order Now</a> <br><br>
+                        <a class="btn btn-success" href="/ordernow">Order Now</a> <br><br>
                     @endif
                 @else
                     <div class="d-grid gap-2 col-5 mx-auto text-center">
