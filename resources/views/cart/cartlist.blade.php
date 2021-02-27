@@ -16,31 +16,8 @@ $value = CartController::hasCart();
                 @if ($value == 'no')
                     <h2 class="mb-3">Your Cart</h2>
                     <a class="btn btn-success" href="/ordernow">Order Now</a> <br><br>
-                    @for ($i = 0; $i < count($products); $i++)
-                        <div class="row searched-item cart-list-divider">
-                            <div class="col-sm-3">
-                                <a href="detail/{{ $products[$i]->id }}">
-                                    <img class="trending-image" src="{{ asset("products/{$products[$i]->gallery}") }}">
-                                </a>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="">
-                                    <h2>{{ $products[$i]->name }}</h2>
-                                    <h5>{{ $products[$i]->description }}</h5>
-                                    <h5>$ {{ $products[$i]->price }}</h5>
 
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <a href="/removecart/{{ $products[$i]->cart_id }}" class="btn
-                                                                                                    btn-warning">Remove
-                                    from
-                                    Cart</a>
-                            </div>
-                        </div>
-                    @endfor
-
-                    {{-- @foreach ($products as $item)
+                    @foreach ($products as $item)
                         <div class="row searched-item cart-list-divider">
                             <div class="col-sm-3">
                                 <a href="detail/{{ $item->id }}">
@@ -51,14 +28,14 @@ $value = CartController::hasCart();
                                 <div class="">
                                     <h2>{{ $item->name }}</h2>
                                     <h5>{{ $item->description }}</h5>
-                                    <h5>$ {{ $item->price }}</h5>
+                                    <h5>$ {{ number_format($item->price) }}</h5>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <a href="/removecart/{{ $item->cart_id }}" class="btn btn-warning">Remove from Cart</a>
                             </div>
                         </div>
-                        @endforeach --}}
+                    @endforeach
 
                     @if ($total > 4)
                         <a class="btn btn-success" href="/ordernow">Order Now</a> <br><br>

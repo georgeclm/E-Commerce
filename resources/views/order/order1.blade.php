@@ -8,7 +8,7 @@
                 <tbody>
                     <tr>
                         <td>Amount</td>
-                        <td>$ {{ $total }}</td>
+                        <td>$ {{ number_format($total) }}</td>
                     </tr>
                     <tr>
                         <td>Tax</td>
@@ -20,7 +20,7 @@
                     </tr>
                     <tr>
                         <td>Total amount</td>
-                        <td>$ {{ $total + 10 }}</td>
+                        <td>$ {{ number_format($total + 10) }}</td>
                     </tr>
                 </tbody>
             </table>
