@@ -8,6 +8,7 @@
                 <tbody>
                     <tr>
                         <td>Amount</td>
+
                         <td>$ {{ number_format($total) }}</td>
                     </tr>
                     <tr>
