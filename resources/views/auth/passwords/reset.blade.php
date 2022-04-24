@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Reset - TokoApp')
+@section('title', 'Reset - OSSI')
 
 @section('content')
     <div class="container">

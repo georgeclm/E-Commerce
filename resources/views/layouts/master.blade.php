@@ -26,6 +26,7 @@
             <div class="alert alert-danger">
                 {{ Session::get('error') }}
             </div>
+            {{ Session::forget('error') }}
         @endif
 
         @if (Session::has('success'))
@@ -34,6 +35,7 @@
                     <h6>{!! \Session::get('success') !!}</h6>
                 </ul>
             </div>
+            {{ Session::forget('success') }}
         @endif
 
         <main class="py-4">

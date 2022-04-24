@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Register - TokoApp')
+@section('title', 'Register - OSSI')
 
 @section('content')
     <div class="container-fluid">

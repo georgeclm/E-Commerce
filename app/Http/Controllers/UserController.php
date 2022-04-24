@@ -15,4 +15,23 @@ class UserController extends Controller
         $user = User::find($id);
         return view('profile.profile', compact('user'));
     }
+
+    public function edit(User $user)
+    {
+        return view('profile.edit', compact('user'));
+    }
+
+    public function update(User $user)
+    {
+        request()->validate([
+            'name' => 'required',
+            'email' => 'required|email'
+        ]);
+        $user->update([
+            'name' => request()->name,
+            'email' => request()->email,
+        ]);
+        session(['success' => 'Profile have been updated']);
+        return redirect()->route('users.detail',$user->id);
+    }
 }

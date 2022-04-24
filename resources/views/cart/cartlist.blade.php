@@ -7,7 +7,7 @@ $value = CartController::hasCart();
 }
 ?>
 @extends('layouts.master')
-@section('title', 'Your Cart - TokoApp')
+@section('title', 'Your Cart - OSSI')
 @section('content')
 
     <div class="container">
@@ -21,14 +21,14 @@ $value = CartController::hasCart();
                         <div class="row searched-item cart-list-divider">
                             <div class="col-sm-3">
                                 <a href="detail/{{ $item->id }}">
-                                    <img class="trending-image" src="{{ asset("products/{$item->gallery}") }}">
+                                    <img class="trending-image" src="{{ asset("storage/product/{$item->gallery}") }}">
                                 </a>
                             </div>
                             <div class="col-sm-4">
                                 <div class="">
                                     <h2>{{ $item->name }}</h2>
                                     <h5>{{ $item->description }}</h5>
-                                    <h5>$ {{ number_format($item->price) }}</h5>
+                                    <h5>Rp. {{ number_format($item->price) }}</h5>
                                 </div>
                             </div>
                             <div class="col-sm-3">

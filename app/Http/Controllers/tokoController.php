@@ -26,12 +26,31 @@ class tokoController extends Controller
 
     function profile($id)
     {
-        $tokoId = tokoProfile::where('user_id', $id)
-            ->get('id');
-        $tokoprofile = tokoProfile::find($tokoId);
+        $toko = tokoProfile::firstWhere('user_id', $id);
         $products = Product::where('user_id', $id)
             ->get();
-        return view('profile.tokoProfile', compact('tokoprofile', 'products'));
+        return view('profile.tokoProfile', compact('toko', 'products'));
+    }
+
+    function edit(tokoProfile $toko)
+    {
+        return view('profile.tokoEdit', compact('toko'));
+    }
+
+    function update(tokoProfile $toko)
+    {
+        request()->validate([
+            'tokoname' => 'required',
+            'address' => 'required',
+            'url' => 'required',
+        ]);
+        $toko->update([
+            'tokoname' => request()->tokoname,
+            'address' => request()->address,
+            'url' => request()->url,
+        ]);
+        session(['success' => 'Toko Profile have been updated']);
+        return redirect()->route('tokoProfile.detail',$toko->id);
     }
     static function hasProduct()
     {

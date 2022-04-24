@@ -21,14 +21,17 @@
                                     <h5>Address: {{ $item->address }}</h5>
                                     <h5>Payment Status: {{ $item->payment_status }}</h5>
                                     <h5>Payment Method: {{ $item->payment_method }}</h5>
+                                    <h5>Buyer: {{ $item->user->name }}</h5>
 
                                 </div>
                             </div>
-                            <div class="col-sm-3 text-center">
-                                @if($item->status == 'Delivered')
-                                    <a class="btn btn-outline-success" href="{{ route('purchases.delivery.update',['order'=> $item->id, 'status'=> 'Done']) }}">Received</a>
-                                    <br>
-                                    You will give Rp. {{ number_format($item->product->price) }} to Seller
+                            <div class="col-sm-3">
+                                @if($item->payment_status == 'Pending')
+                                    <a class="btn btn-outline-secondary" href="{{ route('purchases.payment.update',['order'=> $item->id, 'status'=> 'Paid']) }}">Confirm Payment</a>
+                                @elseif($item->status == 'Pending')
+                                    <a class="btn btn-outline-secondary" href="{{ route('purchases.delivery.update',['order'=> $item->id, 'status'=> 'Delivered']) }}">Product Delivered</a>
+                                @elseif($item->status == 'Done')
+                                    <button class="btn btn-success" disabled>Done</button>
                                 @endif
                             </div>
                         </div>
@@ -36,7 +39,7 @@
                 @else
                     <div class="d-grid gap-2 col-5 mx-auto text-center">
                         <br><br>
-                        <h2 class="mb-3 fs-1">Order Is Empty</h2>
+                        <h2 class="mb-3 fs-1">No Purchases On Your Product Yet</h2>
                     </div>
 
                 @endif

@@ -19,8 +19,8 @@ class CartController extends Controller
         $cart->product_id = $req->product_id;
         // save to the database cart
         $cart->save();
-
-        return redirect('/');
+        session(['success' => 'Product Have Been Added To Cart']);
+        return redirect()->back();
         // so the real value can get putted inside the header cart item need to use static
     }
     static function cartItem()
@@ -54,7 +54,8 @@ class CartController extends Controller
         // take the cart table and use the destroy function and take the id as param
         Cart::destroy($id);
         // after that redirect to the cartlist
-        return redirect('/cartlist');
+        session(['error' => 'Product Have Been Removed From Cart']);
+        return redirect()->back();
     }
     static function hasCart()
     {

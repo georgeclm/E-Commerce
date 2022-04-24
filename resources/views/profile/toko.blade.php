@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Create Toko - TokoApp')
+@section('title', 'Create Toko - OSSI')
 
 @section('content')
 

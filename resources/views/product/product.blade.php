@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'TokoApp')
+@section('title', 'Online Smartphone Store Indonesia')
 
 @section('content')
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -14,10 +14,10 @@
         </ol>
         <div class="carousel-inner">
             @foreach ($products as $item)
-                <div class="carousel-item {{ $item->id == 1 ? 'active' : '' }}" data-bs-interval="10000">
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-bs-interval="10000">
                     <a href="detail/{{ $item->id }}">
                         <div class="text-center">
-                            <img src="{{ asset("products/{$item->gallery}") }}" class="slider-img" alt="...">
+                            <img src="{{ asset("storage/product/{$item->gallery}") }}" class="slider-img" alt="...">
 
                         </div>
                         <div class="carousel-caption d-none d-md-block slider-text">
@@ -46,11 +46,11 @@
                         <div class="col mb-4 link-web">
                             <a href="detail/{{ $item->id }}">
                                 <div class="card h-100 rounded" style="width: 12rem;">
-                                    <img src="{{ asset("products/{$item->gallery}") }}" class="card-img-top"
+                                    <img src="{{ asset("storage/product/{$item->gallery}") }}" class="card-img-top"
                                         style="width: 12rem; height: 12rem; background-size: cover; background-position: center;">
                                     <div class="card-body">
                                         <h6 class="card-title">{{ $item->name }}</h6>
-                                        <h5 class="card-text"> $ {{ number_format($item->price) }}</h5>
+                                        <h5 class="card-text">Rp. {{ number_format($item->price) }}</h5>
 
                                     </div>
                                 </div>

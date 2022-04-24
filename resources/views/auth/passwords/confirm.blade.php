@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Confirm Password - TokoApp')
+@section('title', 'Confirm Password - OSSI')
 
 @section('content')
     <div class="container">

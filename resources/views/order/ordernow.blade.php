@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Order - TokoApp')
+@section('title', 'Order - OSSI')
 
 @section('content')
     <div class="container">
@@ -8,19 +8,19 @@
                 <tbody>
                     <tr>
                         <td>Amount</td>
-                        <td>$ {{ number_format($total) }}</td>
+                        <td>Rp. {{ number_format($total) }}</td>
                     </tr>
                     <tr>
                         <td>Tax</td>
-                        <td>$ 0</td>
+                        <td>Rp. 0</td>
                     </tr>
                     <tr>
                         <td>Delivery Charges</td>
-                        <td>$ 10</td>
+                        <td>Rp. 10</td>
                     </tr>
                     <tr>
                         <td>Total amount</td>
-                        <td>$ {{ number_format($total + 10) }}</td>
+                        <td>Rp. {{ number_format($total + 10) }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -33,12 +33,9 @@
                     </div>
                     <div class="form-group">
                         <label for="pwd">Payment Method:</label> <br><br>
-                        <input type="radio" value="cash" class="form-check-input" name="payment" id=""><span> Online
-                            Payment</span> <br><br>
+                        <input type="radio" value="transfer" class="form-check-input" name="payment" id=""><span> Transfer</span> <br><br>
                         <input type="radio" value="cash" class="form-check-input" name="payment" id=""><span> Cash On
                             Delivery</span><br><br>
-                        <input type="radio" value="cash" class="form-check-input" name="payment" id=""><span> Shop
-                            Outlet</span> <br><br>
                     </div>
                     <button type="submit" class="btn btn-outline-success">Pay Now</button>
                 </form>

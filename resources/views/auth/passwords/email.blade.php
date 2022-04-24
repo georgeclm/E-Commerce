@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Email - TokoApp')
+@section('title', 'Email - OSSI')
 
 @section('content')
     <div class="container">

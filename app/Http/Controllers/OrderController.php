@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -43,25 +44,48 @@ class OrderController extends Controller
             Cart::where('user_id', auth()->id())->delete();
         }
         $req->input();
+        session(['success' => 'Order have been created successfully']);
+
         return redirect('/');
     }
     // this my order will use join again because inside the table orders there is no information about the products so to show the product inside orders we need to join the database
     function myOrder()
     {
-        $userId = auth()->id();
-        // first the orders table that is want to get join
-        $orders = DB::table('orders')
-            // join the database with the products and same as prior
-            // how to read this join the first one is the products table and then the second is the orders product id and the last compare with the products.id inside products table
-            ->join('products', 'orders.product_id', '=', 'products.id')
-            ->where('orders.user_id', $userId)
-            ->get();
+        $orders = Order::where('user_id',auth()->id())->with('product')->get();
+
         return view('order.myorder', compact('orders'));
+    }
+    function purchase()
+    {
+        $products_id = Product::where('user_id', auth()->id())->pluck('id');
+        $orders = Order::whereIn('product_id', $products_id)->with(['product','user'])->get();
+
+        return view('order.sellerorder', compact('orders'));
+    }
+    function payment(Order $order)
+    {
+        $order->update(['payment_status' => request()->status]);
+        session(['success' => 'Payment Have Been Updated']);
+        return redirect()->back();
+    }
+    function delivery(Order $order)
+    {
+        if(request()->status == 'Done'){
+            $order->update(['status' => request()->status]);
+            $order->product->user->profile->update([
+                'balance' => $order->product->user->profile->balance + $order->product->price
+            ]);
+            session(['success' => 'Order Is Done Enjoy Your Product']);
+            return redirect()->back();
+        }
+        $order->update(['status' => request()->status]);
+        session(['success' => 'Delivery Status Have Been Updated']);
+        return redirect()->back();
     }
     public function buyNow(Request $request)
     {
         $cart = new Cart;
-        $cart->user_id = $request->auth()->id();
+        $cart->user_id = auth()->id();
         $cart->product_id = $request->product_id;
         $cart->save();
         $total = DB::table('cart')

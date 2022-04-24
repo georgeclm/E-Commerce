@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Profile - TokoApp')
+@section('title', 'Profile - OSSI')
 
 @section('content')
     <br>
@@ -11,7 +11,9 @@
                 <h3>Email: {{ $user->email }}</h3>
                 <br><br>
             </div>
-
+            <div class="col-sm-6 mt-auto">
+                <a href="{{ route('users.edit',$user->id) }}" class="btn btn-outline-success mb-3">Edit Profile</a>
+            </div>
         </div>
     </div>
 @endsection

@@ -23,13 +23,18 @@ Auth::routes();
 
 Route::get("/", [ProductController::class, 'index']);
 Route::get("/search", [ProductController::class, 'search']);
-Route::get("/detail/{id}", [ProductController::class, 'detail']);
+Route::get("/detail/{id}", [ProductController::class, 'detail'])->name('product.detail');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::patch("/product/edit/{product}", [ProductController::class, 'update'])->name('product.update');
     Route::get("/toko/create", [tokoController::class, 'index']);
     Route::post("/toko", [tokoController::class, 'createToko']);
-    Route::get('/tokoprofile/{id}', [tokoController::class, 'profile']);
-    Route::get('/profile/{id}', [UserController::class, 'profile']);
+    Route::get('/tokoprofile/{id}', [tokoController::class, 'profile'])->name('tokoProfile.detail');;
+    Route::get('/tokoprofile/{toko}/edit', [tokoController::class, 'edit'])->name('tokoProfile.edit');
+    Route::put('/tokoprofile/{toko}/edit', [tokoController::class, 'update'])->name('tokoProfile.update');
+    Route::get('/profile/{id}', [UserController::class, 'profile'])->name('users.detail');;
+    Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/profile/{user}/edit', [UserController::class, 'update'])->name('users.update');
     Route::post("/add_to_cart", [CartController::class, 'addToCart']);
     Route::post("/buynow", [OrderController::class, 'buyNow']);
 
@@ -40,6 +45,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post("/order1", [ProductController::class, 'order1']);
 
     Route::get("/myorders", [OrderController::class, 'myOrder']);
+    Route::get("/purchase", [OrderController::class, 'purchase'])->name('purchases');
+    Route::get("/{order}/payment/{status}", [OrderController::class, 'payment'])->name('purchases.payment.update');
+    Route::get("/{order}/delivery/{status}", [OrderController::class, 'delivery'])->name('purchases.delivery.update');
     Route::get("/product/create", [ProductController::class, 'create']);
-    Route::post("/product", [ProductController::class, 'store']);
+    Route::get("/product/{product}/edit", [ProductController::class, 'edit'])->name('product.edit');
+    Route::post("/product", [ProductController::class, 'store'])->name('products.store');
 });
