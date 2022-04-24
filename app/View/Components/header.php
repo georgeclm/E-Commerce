@@ -7,7 +7,7 @@ use App\Models\tokoProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
-class header extends Component
+class Header extends Component
 {
     /**
      * Create a new component instance.
@@ -16,8 +16,6 @@ class header extends Component
      */
     public $total;
     public $value;
-    public $home;
-    public $order;
 
     public function __construct()
     {
