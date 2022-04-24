@@ -32,12 +32,6 @@ class header extends Component
             $userId = auth()->id();
             $this->total = Cart::where('user_id', $userId)->count();
         }
-        $currentURL = url()->current();
-        if ($currentURL == "http://127.0.0.1:8000") {
-            $this->home = true;
-        } else if ($currentURL == "http://127.0.0.1:8000/myorders") {
-            $this->order = true;
-        }
     }
 
     /**
